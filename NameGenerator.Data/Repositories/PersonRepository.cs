@@ -24,5 +24,15 @@ namespace NameGenerator.Data.Repositories
             using var connection = _databaseService.CreateConnection();
             return await connection.QueryAsync<Person>("SELECT * FROM Persons");
         }
+
+        public async Task AddPersonAsync(Person person)
+        {
+            var sql = "INSERT INTO Persons (FirstName, LastName) VALUES (@FirstName, @LastName);";
+
+            using (var connection = _databaseService.CreateConnection())
+            {
+                await connection.ExecuteAsync(sql, person);
+            }
+        }
     }
 }

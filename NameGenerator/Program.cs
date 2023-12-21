@@ -1,4 +1,5 @@
 using NameGenerator.Core.Interfaces;
+using NameGenerator.Core.Services;
 using NameGenerator.Data.Repositories;
 using NameGenerator.Data.Services;
 
@@ -12,6 +13,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IDatabaseService, DatabaseService>();
 builder.Services.AddScoped<IPersonRepository, PersonRepository>();
+builder.Services.AddScoped<IPersonGeneratorService, PersonGeneratorService>();
 
 var app = builder.Build();
 
