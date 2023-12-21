@@ -27,7 +27,7 @@ namespace NameGenerator.Data.Repositories
 
         public async Task AddPersonAsync(Person person)
         {
-            var sql = "INSERT INTO Persons (FirstName, LastName) VALUES (@FirstName, @LastName);";
+            var sql = "INSERT INTO Persons (FirstName, LastName, Address_IP_Generated) VALUES (@FirstName, @LastName, @Address_IP_Generated);";
 
             using (var connection = _databaseService.CreateConnection())
             {

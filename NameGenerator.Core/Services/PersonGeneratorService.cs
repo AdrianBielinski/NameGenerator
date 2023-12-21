@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace NameGenerator.Core.Services
 {
-    public class PersonGeneratorService : IPersonGeneratorService   
+    public class PersonGeneratorService : IPersonGeneratorService
     {
         private readonly IPersonRepository _personRepository;
 
@@ -18,15 +18,16 @@ namespace NameGenerator.Core.Services
             _personRepository = personRepository;
         }
 
-        public async Task GenerateAndSavePersons(int count)
+        public async Task GenerateAndSavePersons(int count, string ipAddress)
         {
+            // add null protection
             var random = new Random();
             for (int i = 0; i < count; i++)
             {
                 var firstName = PredefinedNames.FirstNames[random.Next(PredefinedNames.FirstNames.Count)];
                 var lastName = PredefinedNames.LastNames[random.Next(PredefinedNames.LastNames.Count)];
 
-                var person = new Person { FirstName = firstName, LastName = lastName };
+                var person = new Person { FirstName = firstName, LastName = lastName, Address_IP_Generated = ipAddress };
                 await _personRepository.AddPersonAsync(person);
             }
         }

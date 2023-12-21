@@ -8,7 +8,7 @@ namespace NameGenerator.Core.Interfaces
 {
     public interface IPersonGeneratorService
     {
-        Task GenerateAndSavePersons(int count);
+        Task GenerateAndSavePersons(int count,string ipAddress);
     }
 
 }
