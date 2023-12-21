@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 using System.Data;
 using Microsoft.Extensions.Configuration;
 using System.Data.SqlClient;
+using NameGenerator.Core.Interfaces;
 
 namespace NameGenerator.Data.Services
 {
-    public class DatabaseService
+    public class DatabaseService : IDatabaseService
     {
         private readonly string _connectionString;
 

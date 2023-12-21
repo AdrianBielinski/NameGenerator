@@ -12,9 +12,9 @@ namespace NameGenerator.Data.Repositories
 {
     public class PersonRepository : IPersonRepository
     {
-        private readonly DatabaseService _databaseService;
+        private readonly IDatabaseService _databaseService;
 
-        public PersonRepository(DatabaseService databaseService)
+        public PersonRepository(IDatabaseService databaseService)
         {
             _databaseService = databaseService;
         }
