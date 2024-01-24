@@ -1,9 +1,16 @@
+using Serilog;
 using NameGenerator.Core.Interfaces;
 using NameGenerator.Core.Services;
 using NameGenerator.Data.Repositories;
 using NameGenerator.Data.Services;
 
 var builder = WebApplication.CreateBuilder(args);
+
+Log.Logger = new LoggerConfiguration()
+    .WriteTo.File("logs/log.txt")
+    .CreateLogger();
+
+builder.Host.UseSerilog();
 
 // Add services to the container.
 
