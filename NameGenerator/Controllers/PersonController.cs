@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MyApplication.Core.Logging;
 using NameGenerator.Core.Interfaces;
 using NameGenerator.Core.Services;
 
@@ -9,17 +10,28 @@ namespace NameGenerator.API.Controllers
     public class PersonController : ControllerBase
     {
         private readonly IPersonGeneratorService _personGeneratorService;
+        private readonly LoggerService _loggerService;
 
-        public PersonController(IPersonGeneratorService personGeneratorService)
+        public PersonController(IPersonGeneratorService personGeneratorService, LoggerService loggerService)
         {
             _personGeneratorService = personGeneratorService;
+            _loggerService = loggerService;
         }
 
         [HttpPost("generate")]
         public async Task<IActionResult> GeneratePersons(int count)
         {
-            string? ipAddress = GetClientIpAddress();
-            await _personGeneratorService.GenerateAndSavePersons(count, ipAddress);
+            try
+            {
+                string? ipAddress = GetClientIpAddress();
+                await _personGeneratorService.GenerateAndSavePersons(count, ipAddress);
+            }
+            catch (Exception ex)
+            {                
+                _loggerService.LogError(ex, "Wystąpił błąd podczas generowania osób");
+                return StatusCode(500, "Wystąpił błąd podczas przetwarzania żądania");
+            }
+            
             return Ok("People generated, saved in Database.");
         }
 
